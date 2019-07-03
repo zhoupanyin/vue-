@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue-dev/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p v-for="(val,i) in list">{{i}}---{{val}}</p>
+        <hr>
+        <p v-for="(val,key) in user">{{key}}---{{val}}</p>
+        <hr>
+        <p v-for="(val,i) in person" :key="val.id">{{i}}---{{val.id}}---{{val.name}}</p>
+        <hr>
+        <ul>
+            <li v-for="count in 5">{{count}}</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                list: ["jack", "rose", "kiki", "honey", "helly"],
+                user: {
+                    id: 1,
+                    name: "jack",
+                    age: 18
+                },
+                person: [{
+                        id: 1,
+                        name: "韩非"
+                    },
+                    {
+                        id: 2,
+                        name: "张良"
+                    },
+                    {
+                        id: 3,
+                        name: "盖聂"
+                    },
+                    {
+                        id: 4,
+                        name: "白凤"
+                    },
+                    {
+                        id: 5,
+                        name: "李斯"
+                    },
+                ]
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+    <script src="../vue-dev/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">添加品牌</h4>
+            </a>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                 Id:
+                 <input type="text" name="Id" v-model="id">
+                 Name:
+                 <input type="text" name="name" v-model="name">
+                 <input type="button" value="添加" @click="add">
+                 搜索名称关键字:
+                 <input type="text" placeholder="宝" v-model="keyword">
+                </div>
+              </div>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>品牌名称</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="val in search()" :key="val.id">
+                    <td>{{val.id}}</td>
+                    <td v-text="val.name"></td>
+                    <td>{{val.ctime}}</td>
+                    <td><a href="##" @click.prevent="del(val.id)">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                id:"",
+                name:"",
+                list: [{
+                        id: 1,
+                        name: "宝马",
+                        ctime: new Date()
+                    },
+                    {
+                        id: 2,
+                        name: "奔驰",
+                        ctime: new Date()
+                    },
+                    {
+                        id: 3,
+                        name: "幻影",
+                        ctime: new Date()
+                    }
+                ],
+                keyword:""
+            },
+            methods: {
+                add(){
+                    let car={id:this.id,name:this.name,ctime:new Date()}
+                    this.list.push(car)
+                    this.id=this.name=""
+                    
+                },
+                del(id){
+                    // this.list.some((Item,i)=>{
+                    //     if(Item.id===id){
+                    //         this.list.splice(i,1)
+                    //         return true
+                    //     }
+                    // }) 
+                    this.list.findIndex((Item,index)=>{
+                        //传进来的id与数组id一样,根据索引删除该行
+                        if(Item.id===id){
+                            this.list.splice(index,1)
+                            return true
+                        }
+                    }) 
+                },
+                search(){
+                    let newlist=this.list.filter((val,i)=>{
+                        if(val.name.includes(this.keyword)){
+                            return true
+                        }
+                    })
+                    return newlist
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
